@@ -13,6 +13,7 @@ const links = [
   ["Portfolio", "/#portfolio"],
   ["Reviews", "/#reviews"],
   ["Contact", "/contact"],
+  ["Administration", "/admin"],
 ] as const;
 
 type CompanyDetails = {
@@ -38,14 +39,20 @@ export default function Header() {
           throw new Error("Unable to load company details");
         }
 
-        const data: CompanyDetails = await response.json();
+        const data: CompanyDetails =
+          await response.json();
 
         if (data.company_name?.trim()) {
-          setCompanyName(data.company_name.trim());
+          setCompanyName(
+            data.company_name.trim()
+          );
         }
       } catch (error) {
         if (!controller.signal.aborted) {
-          console.error("Company details:", error);
+          console.error(
+            "Company details:",
+            error
+          );
         }
       }
     };
@@ -58,7 +65,9 @@ export default function Header() {
   useEffect(() => {
     if (!open) return;
 
-    const handleEscape = (event: KeyboardEvent) => {
+    const handleEscape = (
+      event: KeyboardEvent
+    ) => {
       if (event.key === "Escape") {
         setOpen(false);
       }
@@ -70,12 +79,26 @@ export default function Header() {
       }
     };
 
-    document.addEventListener("keydown", handleEscape);
-    window.addEventListener("resize", handleResize);
+    document.addEventListener(
+      "keydown",
+      handleEscape
+    );
+
+    window.addEventListener(
+      "resize",
+      handleResize
+    );
 
     return () => {
-      document.removeEventListener("keydown", handleEscape);
-      window.removeEventListener("resize", handleResize);
+      document.removeEventListener(
+        "keydown",
+        handleEscape
+      );
+
+      window.removeEventListener(
+        "resize",
+        handleResize
+      );
     };
   }, [open]);
 
@@ -144,11 +167,15 @@ export default function Header() {
             open ? "is-open" : ""
           }`}
           aria-label={
-            open ? "Close navigation menu" : "Open navigation menu"
+            open
+              ? "Close navigation menu"
+              : "Open navigation menu"
           }
           aria-expanded={open}
           aria-controls="jovia-mobile-navigation"
-          onClick={() => setOpen((value) => !value)}
+          onClick={() =>
+            setOpen((value) => !value)
+          }
         >
           <span />
           <span />
